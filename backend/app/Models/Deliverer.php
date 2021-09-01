@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Deliverer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -26,5 +26,10 @@ class User extends Authenticatable
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
+    }
+
+    public function vehicles()
+    {
+        return $this->hasOne(Vehicle::class);
     }
 }

@@ -9,5 +9,7 @@ Route::post('/login', [AuthController::class, 'loginUser'])->name('auth.login');
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    //Somente os usuários logados acessam essas rotas
+
     Route::post('/logout/{user}', [AuthController::class, 'logoutUser'])->name('auth.logout');
 });
