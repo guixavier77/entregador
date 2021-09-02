@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -30,23 +31,29 @@ class AuthController extends Controller
         }
     }
 
-    public function loginUser(LoginRequest $request)
+    public function loginClient(LoginRequest $request)
     {
-        $authResult = $this->repository->auth($request->validated());
+        $token = null;
 
-        if ($authResult) {
-            return response()->json(['message' => 'User loggedIn.', 'bearer_token' => $authResult], Response::HTTP_OK);
+        if (Auth::attempt($request->validated())) {
+            $user = User::where('email', $request->email)->first();
+            $user->tokens()->delete();
+            $token = $user->createToken($user->email);
+            $token = $token->plainTextToken;
+
+            return response()->json([
+                'message' => 'Usuário logado com sucesso.',
+                'Bearer_token' => $token,
+                'user' => $user
+            ], Response::HTTP_OK);
         }
-        return response()->json(['message' => 'The credentials not matches.'], Response::HTTP_UNAUTHORIZED);
+
+        return response()->json(['message' => 'Email ou senha incorretos.'], Response::HTTP_UNAUTHORIZED);
     }
 
-    public function logoutUser(Request $request, User $user)
+    public function logoutClient(User $user)
     {
-        $error = $this->repository->logout($user);
-
-        if (!$error) {
-            return response()->json(['message' => 'User logout.'], Response::HTTP_OK);
-        }
-        return response()->json(['message' => $error], Response::HTTP_INTERNAL_SERVER_ERROR);
+        $user->tokens()->delete();
+        return response()->json(['message' => 'Logout concluído com sucesso.'], Response::HTTP_OK);
     }
 }
