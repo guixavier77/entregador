@@ -1,0 +1,57 @@
+create database teste;
+
+CREATE TABLE user_comun (
+	cpfCnpj INT(11) NOT NULL PRIMARY KEY,
+    nome VARCHAR(100) ,
+    email VARCHAR(100),
+    foto  BLOB,
+    telefone VARCHAR(15),
+    senha VARCHAR(255)
+);
+
+CREATE TABLE user_entregador(
+	cpfCnpj INT(14) NOT NULL PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    foto  BLOB,
+    telefone VARCHAR(15),
+    senha VARCHAR(255),
+    foto_cnh BLOB
+);
+
+CREATE TABLE endereco (
+	cod INT NOT NULL PRIMARY KEY,
+    cpfCnpj INT(14),
+    rua VARCHAR(120),
+    bairro VARCHAR(120),
+    num INT,
+    cidade VARCHAR(120),
+    estado VARCHAR(120),
+    FOREIGN KEY (cpfCnpj) REFERENCES user_comun(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cpfCnpj) REFERENCES user_entregador(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE
+    
+);
+
+CREATE TABLE entrega (
+	cod INT NOT NULL PRIMARY KEY,
+    produto VARCHAR(255),
+    local_retirada VARCHAR(255),
+    local_entrega VARCHAR(255),
+    cliente_get VARCHAR(100),
+    user_comun INT(14),
+    user_entregador INT(14),
+    FOREIGN KEY (user_comun) REFERENCES user_comun(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_entregador) REFERENCES user_entregador(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+CREATE TABLE veiculo (
+	placa VARCHAR(7) NOT NULL PRIMARY KEY,
+    cor varchar(50),
+    modelo varchar(100),
+    doc_veiculo BLOB,
+    id_user int(14),
+    FOREIGN KEY (id_user) REFERENCES user_comun(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES user_entregador(cpfCnpj) ON UPDATE CASCADE ON DELETE CASCADE
+    
+);
