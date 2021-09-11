@@ -73,6 +73,13 @@ class AuthController extends Controller
             'state' => $data['state'],
             'deliverer_id' => $deliverer->id
         ]);
+        $deliverer->vehicles()->create([
+            'plaque' =>  $data['plaque'],
+            'color' =>  $data['color'],
+            'model' => $data['model'],
+            'document' => $data['document'],	
+            'deliverer_id' => $deliverer->id
+        ]);
         $token = $deliverer->createToken($deliverer->email)->plainTextToken;
 
         return response()->json([

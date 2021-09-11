@@ -11,6 +11,14 @@ class Vehicle extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'plaque',
+        'color',
+        'model',
+        'document',
+        'deliverer_id'
+    ];
+
     public function deliverer()
     {
         return $this->belongsTo(Deliverer::class);

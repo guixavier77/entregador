@@ -30,12 +30,16 @@ class RegisterDelivererRequest extends FormRequest
             'image' => 'required',
             'cnh_image' => 'required',
             'cpf' => 'required|cpf',
-            'phone' => 'required|celular_com_ddd', 
+            'phone' => 'required|celular_com_ddd',
             'street' => 'required',
             'neighborhood' => 'required',
-            'number' =>'required',
-            'city' =>'required',	
-            'state' =>'required', 
+            'number' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'plaque' => 'required|formato_placa_de_veiculo',
+            'color' => 'required',
+            'model' => 'required',
+            'document' => 'required',
         ];
     }
 }
