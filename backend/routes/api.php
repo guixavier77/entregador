@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/register', [AuthController::class, 'registerUser'])->name('auth.register');
+Route::post('/register-deliverer', [AuthController::class, 'registerDeliverer'])->name('auth.registerDeliverer');
 
 //rota de login para usuário comum
 Route::post('/login-client', [AuthController::class, 'loginClient'])->name('auth.loginClient');

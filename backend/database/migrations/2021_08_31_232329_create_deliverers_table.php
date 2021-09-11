@@ -22,7 +22,6 @@ class CreateDeliverersTable extends Migration
             $table->string('cnh_image');
             $table->string('phone');
             $table->string('password');
-            $table->foreignId('address_id')->constrained();
             $table->timestamps();
         });
     }

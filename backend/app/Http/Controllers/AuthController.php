@@ -3,33 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterDelivererRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Models\Address;
 use App\Models\Deliverer;
 use App\Models\User;
 use App\Repositories\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    private $repository;
-
-    public function __construct(AuthRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+  
 
     public function registerUser(RegisterUserRequest $request)
     {
-        try {
-            $this->repository->store($request->validated());
 
-            return response()->json(['message' => 'User created.'], Response::HTTP_CREATED);
-        } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        
+        $data = $request->validated();
+        $data['password'] = Hash::make($request->password);
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'image' => $data['image'],
+            'cpf' => $data['cpf'],
+            'phone' => $data['phone'], 
+        ]);
+         Address::create([
+            'street' =>  $data['street'],
+            'neighborhood' =>  $data['neighborhood'],
+            'number' => $data['number'],
+            'city' => $data['city'],	
+            'state' => $data['state'],
+            'user_id' => $user->id
+        ]);
+        $token = $user->createToken($user->email)->plainTextToken;
+
+        return response()->json([
+            'message' => 'Usuário cadastrado com sucesso.',
+            'Bearer_token' => $token,
+            'user' => $user
+        ], Response::HTTP_OK);
+       
+    }
+
+    public function registerDeliverer(RegisterDelivererRequest $request){
+        $data = $request->validated();
+        $data['password'] = Hash::make($request->password);
+
+        $deliverer = Deliverer::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'image' => $data['image'],
+            'cnh_image' => $data['cnh_image'],
+            'cpf' => $data['cpf'],
+            'phone' => $data['phone'], 
+        ]);
+         $deliverer->address()->create([
+            'street' =>  $data['street'],
+            'neighborhood' =>  $data['neighborhood'],
+            'number' => $data['number'],
+            'city' => $data['city'],	
+            'state' => $data['state'],
+            'deliverer_id' => $deliverer->id
+        ]);
+        $token = $deliverer->createToken($deliverer->email)->plainTextToken;
+
+        return response()->json([
+            'message' => 'Usuário cadastrado com sucesso.',
+            'Bearer_token' => $token,
+            'deliverer' => $deliverer
+        ], Response::HTTP_OK);
     }
 
     public function loginClient(LoginRequest $request)

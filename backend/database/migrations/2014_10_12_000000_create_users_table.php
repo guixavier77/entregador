@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('image');
             $table->string('phone');
             $table->string('password');
-            $table->foreignId('address_id')->constrained();
             $table->timestamps();
         });
     }

@@ -18,6 +18,16 @@ class Deliverer extends Authenticatable
         'password',
     ];
 
+    protected $fillable = [
+        'cpf',
+        'name',
+        'email',
+        'image',
+        'cnh_image',
+        'phone',
+        'password'
+    ];
+
     public function address()
     {
         return $this->hasOne(Address::class);

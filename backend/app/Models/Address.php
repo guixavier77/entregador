@@ -11,6 +11,16 @@ class Address extends Model
 
     protected $guarded = [];
 
+    protected $fillable = [
+        'street',
+        'neighborhood',
+        'number',
+        'city',	
+        'state',
+        'user_id',
+        'deliverer_id'
+
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

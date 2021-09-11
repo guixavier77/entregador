@@ -20,6 +20,8 @@ class CreateAddressesTable extends Migration
             $table->string('number');
             $table->string('city');
             $table->string('state');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('deliverer_id')->nullable()->constrained('deliverers')->onDelete('cascade');
             $table->timestamps();
         });
     }
