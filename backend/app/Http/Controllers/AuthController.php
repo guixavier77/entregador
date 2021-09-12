@@ -17,12 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-  
+
 
     public function registerUser(RegisterUserRequest $request)
     {
 
-        
+
         $data = $request->validated();
         $data['password'] = Hash::make($request->password);
 
@@ -32,13 +32,13 @@ class AuthController extends Controller
             'password' => $data['password'],
             'image' => $data['image'],
             'cpf' => $data['cpf'],
-            'phone' => $data['phone'], 
+            'phone' => $data['phone'],
         ]);
          Address::create([
             'street' =>  $data['street'],
             'neighborhood' =>  $data['neighborhood'],
             'number' => $data['number'],
-            'city' => $data['city'],	
+            'city' => $data['city'],
             'state' => $data['state'],
             'user_id' => $user->id
         ]);
@@ -49,7 +49,7 @@ class AuthController extends Controller
             'Bearer_token' => $token,
             'user' => $user
         ], Response::HTTP_OK);
-       
+
     }
 
     public function registerDeliverer(RegisterDelivererRequest $request){
@@ -63,13 +63,13 @@ class AuthController extends Controller
             'image' => $data['image'],
             'cnh_image' => $data['cnh_image'],
             'cpf' => $data['cpf'],
-            'phone' => $data['phone'], 
+            'phone' => $data['phone'],
         ]);
          $deliverer->address()->create([
             'street' =>  $data['street'],
             'neighborhood' =>  $data['neighborhood'],
             'number' => $data['number'],
-            'city' => $data['city'],	
+            'city' => $data['city'],
             'state' => $data['state'],
             'deliverer_id' => $deliverer->id
         ]);
@@ -77,7 +77,7 @@ class AuthController extends Controller
             'plaque' =>  $data['plaque'],
             'color' =>  $data['color'],
             'model' => $data['model'],
-            'document' => $data['document'],	
+            'document' => $data['document'],
             'deliverer_id' => $deliverer->id
         ]);
         $token = $deliverer->createToken($deliverer->email)->plainTextToken;
@@ -125,11 +125,38 @@ class AuthController extends Controller
         return response()->json(['message' => 'Email ou senha incorretos.'], Response::HTTP_UNAUTHORIZED);
     }
 
+    public function resetClient(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Senha alterada com sucesso.'], Response::HTTP_OK);
+    }
+
+    public function resetDeliverer(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+
+        $user = Deliverer::find(Auth::user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return response()->json(['message' => 'Senha alterada com sucesso.'], Response::HTTP_OK);
+    }
+
     public function logoutClient(User $user)
     {
         $user->tokens()->delete();
         return response()->json(['message' => 'Logout concluído com sucesso.'], Response::HTTP_OK);
     }
+
     public function logoutDeliverer(Deliverer $deliverer)
     {
         $deliverer->tokens()->delete();

@@ -29,12 +29,12 @@ class RegisterUserRequest extends FormRequest
             'password' => 'required|confirmed',
             'image' => 'required',
             'cpf' => 'required|cpf',
-            'phone' => 'required|celular_com_ddd', 
+            'phone' => 'required|celular_com_ddd',
             'street' => 'required',
             'neighborhood' => 'required',
             'number' =>'required',
-            'city' =>'required',	
-            'state' =>'required', 
+            'city' =>'required',
+            'state' =>'required',
         ];
     }
 

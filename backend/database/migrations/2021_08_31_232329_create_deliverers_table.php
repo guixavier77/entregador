@@ -22,6 +22,7 @@ class CreateDeliverersTable extends Migration
             $table->string('cnh_image');
             $table->string('phone');
             $table->string('password');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }
