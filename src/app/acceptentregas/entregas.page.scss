@@ -1,0 +1,28 @@
+
+ion-card{
+    border: 2px solid rgb(123,31,162);
+}
+
+ion-card-header{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+ion-card .info .info-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+ion-card .info .info-group p{
+    font-size: 18px;
+
+}
+
+
+ion-card .buttons{
+    margin-top: 0.6rem;
+    display: flex;
+    justify-content: center;
+  
+}
