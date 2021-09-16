@@ -4,7 +4,6 @@
       Entregas
     </ion-title>
   </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -13,24 +12,87 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-row>
-      <ion-col col-5>
-            <img src="./assets/user.png">
-      </ion-col>
-    <ion-col col-7>
-      <ion-card-header color="#FFFF">
-        <strong>CONTEUDO</strong>
-      </ion-card-header>
-        <ion-card-content>
-          <p><ion-icon name="earth-outline"></ion-icon> Entrega</p>
-          <p><ion-icon name="globe-outline"></ion-icon> Retirada</p>
-          <p><ion-icon name="information-circle-outline"></ion-icon> Nome recebedor</p>
-        </ion-card-content>
-      </ion-col>
+  <div class="tab-wrap">
+  
+    <input type="radio" name="tabs" id="tab1" checked>
+    <div class="tab-label-content" id="tab1-content">
+      <label class="tab-label" for="tab1">Pendentes</label>
+      <div class="tab-content">
+        <ion-list class="ios list-ios hydrated" inset>
+
+          <ion-item>
+            <ion-thumbnail slot="start" class="ios hydrated">
+              <ion-img src="./assets/aguardando.svg"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>Conteúdo</h2>
+              <h3>Entrega efetuada</h3>
+              <p>Nome do recebedor</p>
+              <div class="buttons">
+                <ion-button><ion-icon name="checkmark-outline"></ion-icon>Entregue</ion-button>
+                <ion-button><ion-icon name="close-outline"></ion-icon>Desistir</ion-button>
+              </div>
+            </ion-label>
+
+           
+          </ion-item>
+
+          <ion-item>
+            <ion-thumbnail slot="start" class="ios hydrated">
+              <ion-img src="./assets/aguardando.svg"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>Conteúdo</h2>
+              <h3>Entrega efetuada</h3>
+              <p>Nome do recebedor</p>
+              <div class="buttons">
+                <ion-button><ion-icon name="checkmark-outline"></ion-icon>Entregue</ion-button>
+                <ion-button><ion-icon name="close-outline"></ion-icon>Desistir</ion-button>
+              </div>
+            </ion-label>
+
+           
+          </ion-item>
+        </ion-list> 	
+      </div>
+    </div>
+     
+    <input type="radio" name="tabs" id="tab2">
+    <div class="tab-label-content" id="tab2-content">
+      <label class="tab-label" for="tab2">Confirmadas</label>
+      <div class="tab-content">
+        <ion-list class="ios list-ios hydrated" inset>
       
-    </ion-row>
-  </ion-card>
+          <ion-item>
+            <ion-thumbnail slot="start" class="ios hydrated">
+              <ion-img src="./assets/checklist.svg"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>Conteúdo</h2>
+              <h3>Entrega efetuada</h3>
+              <p>Nome do recebedor</p>
+            </ion-label>
+
+          </ion-item>
+
+          <ion-item>
+            <ion-thumbnail slot="start" class="ios hydrated">
+              <ion-img src="./assets/checklist.svg"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>Conteúdo</h2>
+              <h3>Entrega efetuada</h3>
+              <p>Nome do recebedor</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+      </div>
+    </div>
+    <div class="slide"></div>
+  
+</div>
+  
 
  
 

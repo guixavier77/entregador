@@ -9,20 +9,16 @@ ion-card-header{
     font-size: 20px;
 }
 ion-card .info .info-group{
+    font-size: 18px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-ion-card .info .info-group p{
-    font-size: 18px;
-
-}
 
 
 ion-card .buttons{
     margin-top: 0.6rem;
     display: flex;
     justify-content: center;
-  
 }
